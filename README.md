@@ -46,7 +46,7 @@ sudo apt full-upgrade
 To include `go4vl` in your own code, pull the package
 
 ```bash
-go get github.com/vladimirvivien/go4vl/v4l2
+go get github.com/wurde/go4vl/v4l2
 ```
 
 ## Examples
@@ -58,7 +58,7 @@ package main
 
 import (
     ...
-    "github.com/vladimirvivien/go4vl/v4l2"
+    "github.com/wurde/go4vl/v4l2"
 )
 
 func main() {
