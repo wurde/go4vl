@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/vladimirvivien/go4vl/imgsupport"
-	"github.com/vladimirvivien/go4vl/v4l2"
-	"github.com/vladimirvivien/go4vl/v4l2/device"
+	"github.com/wurde/go4vl/imgsupport"
+	"github.com/wurde/go4vl/v4l2"
+	"github.com/wurde/go4vl/v4l2/device"
 )
 
 var (

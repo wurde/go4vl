@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/vladimirvivien/go4vl/v4l2"
-	"github.com/vladimirvivien/go4vl/v4l2/device"
+	"github.com/wurde/go4vl/v4l2"
+	"github.com/wurde/go4vl/v4l2/device"
 )
 
 var template = "\t%-24s : %s\n"
@@ -21,7 +21,7 @@ func main() {
 	flag.Parse()
 
 	if devList {
-		if err := listDevices(); err != nil{
+		if err := listDevices(); err != nil {
 			log.Fatal(err)
 		}
 		os.Exit(0)
@@ -73,16 +73,16 @@ func listDevices() error {
 			if mdi, err := dev.GetMediaInfo(); err == nil {
 				if mdi.BusInfo != "" {
 					busInfo = mdi.BusInfo
-				}else{
+				} else {
 					busInfo = "platform: " + mdi.Driver
 				}
 				if mdi.Model != "" {
 					card = mdi.Model
-				}else{
+				} else {
 					card = mdi.Driver
 				}
 			}
-		}else{
+		} else {
 			busInfo = cap.BusInfo
 			card = cap.Card
 		}
@@ -94,7 +94,6 @@ func listDevices() error {
 		}
 
 		fmt.Printf("Device [%s]: %s: %s\n", path, card, busInfo)
-
 
 	}
 	return nil
@@ -196,14 +195,14 @@ func printFormatDesc(dev *device.Device) error {
 		return fmt.Errorf("format desc: %w", err)
 	}
 	fmt.Println("Supported formats:")
-	for i, desc := range descs{
+	for i, desc := range descs {
 		frmSizes, err := v4l2.GetFormatFrameSizes(dev.GetFileDescriptor(), desc.PixelFormat)
 		if err != nil {
 			return fmt.Errorf("format desc: %w", err)
 		}
 		var sizeStr strings.Builder
 		sizeStr.WriteString("Sizes: ")
-		for _, size := range frmSizes{
+		for _, size := range frmSizes {
 			sizeStr.WriteString(fmt.Sprintf("[%dx%d] ", size.Width, size.Height))
 		}
 		fmt.Printf(template, fmt.Sprintf("[%0d] %s", i, desc.Description), sizeStr.String())
@@ -258,6 +257,6 @@ func printCaptureParam(dev *device.Device) error {
 	fmt.Printf(template, "Capture mode", hiqual)
 
 	fmt.Printf(template, "Frames per second", fmt.Sprintf("%d/%d", params.TimePerFrame.Denominator, params.TimePerFrame.Numerator))
-	fmt.Printf(template, "Read buffers", fmt.Sprintf("%d",params.ReadBuffers))
+	fmt.Printf(template, "Read buffers", fmt.Sprintf("%d", params.ReadBuffers))
 	return nil
 }

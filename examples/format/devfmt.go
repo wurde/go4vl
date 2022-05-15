@@ -5,8 +5,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/vladimirvivien/go4vl/v4l2"
-	"github.com/vladimirvivien/go4vl/v4l2/device"
+	"github.com/wurde/go4vl/v4l2"
+	"github.com/wurde/go4vl/v4l2/device"
 )
 
 func main() {
@@ -44,10 +44,10 @@ func main() {
 	}
 
 	if err := device.SetPixFormat(v4l2.PixFormat{
-		Width: uint32(width),
-		Height: uint32(height),
+		Width:       uint32(width),
+		Height:      uint32(height),
 		PixelFormat: fmtEnc,
-		Field: v4l2.FieldNone,
+		Field:       v4l2.FieldNone,
 	}); err != nil {
 		log.Fatalf("failed to set format: %s", err)
 	}

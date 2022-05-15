@@ -7,7 +7,7 @@ import (
 	sys "syscall"
 	"time"
 
-	"github.com/vladimirvivien/go4vl/v4l2"
+	"github.com/wurde/go4vl/v4l2"
 )
 
 type Device struct {
@@ -34,8 +34,8 @@ func Open(path string) (*Device, error) {
 
 // Close closes the underlying device associated with `d` .
 func (d *Device) Close() error {
-	if d.streaming{
-		if err := d.StopStream(); err != nil{
+	if d.streaming {
+		if err := d.StopStream(); err != nil {
 			return err
 		}
 	}
@@ -124,7 +124,6 @@ func (d *Device) GetFormatDescription(idx uint32) (v4l2.FormatDescription, error
 	return v4l2.GetFormatDescription(d.fd, idx)
 }
 
-
 // GetFormatDescriptions returns all possible format descriptions for device
 func (d *Device) GetFormatDescriptions() ([]v4l2.FormatDescription, error) {
 	if err := d.assertVideoCaptureSupport(); err != nil {
@@ -135,7 +134,7 @@ func (d *Device) GetFormatDescriptions() ([]v4l2.FormatDescription, error) {
 }
 
 // GetVideoInputIndex returns current video input index for device
-func (d *Device) GetVideoInputIndex()(int32, error) {
+func (d *Device) GetVideoInputIndex() (int32, error) {
 	if err := d.assertVideoCaptureSupport(); err != nil {
 		return 0, fmt.Errorf("device: %w", err)
 	}
@@ -275,7 +274,7 @@ func (d *Device) Capture(ctx context.Context, fps uint32) (<-chan []byte, error)
 	return dataChan, nil
 }
 
-func (d *Device) StopStream() error{
+func (d *Device) StopStream() error {
 	d.streaming = false
 	for i := 0; i < len(d.buffers); i++ {
 		if err := v4l2.UnmapMemoryBuffer(d.buffers[i]); err != nil {
